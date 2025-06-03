@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Classroom Navigator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#3498db" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #87CEEB;
+      text-align: center;
+      padding: 20px;
+    }
+    header img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+    select, button, input {
+      font-size: 18px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      border: none;
+      margin: 10px 5px;
+    }
+    select {
+      background: #f0f0f0;
+      font-weight: bold;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #loginForm {
+      display: none;
+      margin-top: 20px;
+    }
+    #addLectureBtn {
+      display: none;
+      margin-top: 20px;
+    }
+    @media (max-width: 600px) {
+      h2 { font-size: 24px; }
+      select, button, input { width: 100%; font-size: 20px; margin: 10px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://afit.edu.ng/home/wp-content/uploads/2022/02/cropped-AFIT_logo.jpg" alt="AFIT Logo" />
+  </header>
+  <h2>🎓 Classroom Navigator</h2>
+  <select id="classrooms">
+    <option value="10.610018181142472,7.440292915343388">AMAO HALL</option>
+    <option value="10.609920641718778, 7.442173639677167">AFIT LIBRARY</option>
+    <option value="10.611084860914717, 7.440131737083959">AFIT ICT CENTER</option>
+    <option value="10.60901567384309, 7.443855808334364">ALFA AUDITORIUM</option>
+  </select>
+  <br />
+  <button onclick="navigate()">🚀 Navigate</button>
+  <button onclick="toggleLogin()">⚙️ Settings</button>
+  <div id="loginForm">
+    <input type="text" id="username" placeholder="Username" /><br />
+    <input type="password" id="password" placeholder="Password" /><br />
+    <button onclick="login()">🔐 Login</button>
+  </div>
+  <button id="addLectureBtn">➕ Add Lecture Hall</button>
+  <script>
+    function navigate() {
+      const select = document.getElementById("classrooms");
+      const coords = select.value;
+      const url = `https://www.google.com/maps?q=${coords}`;
+      window.open(url, "_blank");
+    }
+    function toggleLogin() {
+      const form = document.getElementById("loginForm");
+      form.style.display = form.style.display === "block" ? "none" : "block";
+    }
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      if (username === "user" && password === "password") {
+        alert("Login successful!");
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("addLectureBtn").style.display = "inline-block";
+      } else {
+        alert("Invalid credentials!");
+      }
+    }
+  </script>
+</body>
+</html>
